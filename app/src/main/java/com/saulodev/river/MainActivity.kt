@@ -5,10 +5,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -48,18 +50,31 @@ fun Main() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val imageSize = Modifier.size(200.dp)
+            val btnLogin = Modifier
+                .width(280.dp)
+                .height(40.dp)
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = "Logo",
                 modifier = imageSize
             )
-            TextField(
+            OutlinedTextField(
                 value = "", onValueChange = {},
                 placeholder = { Text(text = "Nome:")})
             Spacer(modifier = Modifier.size(10.dp))
-            TextField(value = "", onValueChange = {}, placeholder = { Text(text = "Senha:")})
-            Spacer(modifier = Modifier.size(10.dp))
-            Button(onClick = {  }) {
+            OutlinedTextField(
+                value = "",
+                onValueChange = {},
+                placeholder = { Text(text = "Senha:")})
+            Spacer(
+                modifier = Modifier.size(10.dp)
+            )
+            Button(
+                onClick = {},
+                modifier = btnLogin,
+                shape = CircleShape,
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green)
+            ) {
                 Text(text = "Acessar")
             }
         }
