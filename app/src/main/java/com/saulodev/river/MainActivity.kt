@@ -11,9 +11,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.saulodev.river.ui.theme.MenuScreen
 import com.saulodev.river.ui.theme.RiverTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,7 +37,11 @@ class MainActivity : ComponentActivity() {
                         .fillMaxWidth(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Main()
+                    val navController = rememberNavController()
+                    NavHost(navController, startDestination = "login") {
+                        composable("login") { Main(navController) }
+                        composable("dashboard") { MenuScreen(navController = navController) }
+                    }
                 }
             }
         }
@@ -37,7 +49,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Main() {
+fun Main(navController: NavController) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -50,43 +62,56 @@ fun Main() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val imageSize = Modifier.size(200.dp)
+
             val btnLogin = Modifier
                 .width(280.dp)
                 .height(40.dp)
-            /*Image(
+
+            Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = "Logo",
                 modifier = imageSize
-            )*/
+            )
+
             OutlinedTextField(
                 value = "", onValueChange = {},
-                placeholder = { Text(text = "Nome:")})
+                placeholder = { Text(text = "Nome:")}
+            )
+
             Spacer(modifier = Modifier.size(10.dp))
+
             OutlinedTextField(
                 value = "",
                 onValueChange = {},
                 placeholder = { Text(text = "Senha:")})
+
             Spacer(
                 modifier = Modifier.size(10.dp)
             )
+
             Button(
-                onClick = {},
+                onClick = {navController.navigate("list")},
                 modifier = btnLogin,
                 shape = CircleShape,
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green)
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = colorResource(id = R.color.azul_marinho))
             ) {
-                Text(text = "Acessar")
+                Text(
+                    text = "Acessar",
+                    style = TextStyle(Color.White,
+                    fontFamily = FontFamily.Monospace)
+                )
             }
         }
-
     }
-
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     RiverTheme {
-        Main()
+        val navController = rememberNavController()
+        Main(navController = navController)
     }
 }
+
