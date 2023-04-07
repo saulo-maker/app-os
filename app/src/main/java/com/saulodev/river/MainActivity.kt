@@ -53,11 +53,11 @@ fun Main() {
             val btnLogin = Modifier
                 .width(280.dp)
                 .height(40.dp)
-            Image(
+            /*Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = "Logo",
                 modifier = imageSize
-            )
+            )*/
             OutlinedTextField(
                 value = "", onValueChange = {},
                 placeholder = { Text(text = "Nome:")})
