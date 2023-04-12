@@ -7,6 +7,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,59 +53,70 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Main(navController: NavController) {
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-            .fillMaxHeight()
-            .fillMaxWidth(),
-        color = MaterialTheme.colors.background
+    Scaffold(
+        bottomBar = { Text(text = "Bottom") }
     ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .fillMaxHeight()
+                .fillMaxWidth(),
+            color = MaterialTheme.colors.background
         ) {
-            val imageSize = Modifier.size(200.dp)
-
-            val btnLogin = Modifier
-                .width(280.dp)
-                .height(40.dp)
-
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = "Logo",
-                modifier = imageSize
-            )
-
-            OutlinedTextField(
-                value = "", onValueChange = {},
-                placeholder = { Text(text = "Nome:")}
-            )
-
-            Spacer(modifier = Modifier.size(10.dp))
-
-            OutlinedTextField(
-                value = "",
-                onValueChange = {},
-                placeholder = { Text(text = "Senha:")})
-
-            Spacer(
-                modifier = Modifier.size(10.dp)
-            )
-
-            Button(
-                onClick = {navController.navigate("list")},
-                modifier = btnLogin,
-                shape = CircleShape,
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = colorResource(id = R.color.azul_marinho))
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = "Acessar",
-                    style = TextStyle(Color.White,
-                    fontFamily = FontFamily.Monospace)
+                val imageSize = Modifier.size(200.dp)
+
+                val btnLogin = Modifier
+                    .width(280.dp)
+                    .height(40.dp)
+
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "Logo",
+                    modifier = imageSize
                 )
+
+                OutlinedTextField(
+                    value = "", onValueChange = {},
+                    placeholder = { Text(text = "Nome:")},
+                    shape = CircleShape,
+                    leadingIcon = { Icon(Icons.Default.Email, contentDescription = "") }
+                )
+
+                Spacer(modifier = Modifier.size(10.dp))
+
+                OutlinedTextField(
+                    value = "",
+                    onValueChange = {},
+                    placeholder = { Text(text = "Senha:")},
+                    shape = CircleShape,
+                    leadingIcon = { Icon(Icons.Default.Lock, contentDescription = "") }
+
+                )
+
+                Spacer(
+                    modifier = Modifier.size(10.dp)
+                )
+
+                Button(
+                    onClick = {navController.navigate("dashboard")},
+                    modifier = btnLogin,
+                    shape = CircleShape,
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = colorResource(id = R.color.azul_marinho))
+                ) {
+                    Text(
+                        text = "Acessar",
+                        style = TextStyle(Color.White,
+                            fontFamily = FontFamily.Monospace)
+                    )
+                }
             }
-        }
+    }
+
     }
 }
 
@@ -114,4 +128,3 @@ fun DefaultPreview() {
         Main(navController = navController)
     }
 }
-
